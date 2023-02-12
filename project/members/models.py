@@ -11,9 +11,16 @@ class Member (models.Model):
            null=True, blank=True)
     # cards = models.ManyToManyField(membercardnum)
 
-    #to return as identified objects
+    #to return as identified objects1
     def __str__(self):
       return f"{self.userName} {self.firstname} {self.lastname}{self.accounts}"
+
+
+    def create_member(self):
+      self.save()
+
+    def delete_member(self):
+      self.delete()
 
 class memberAccounts(models.Model):
     owner = models.ForeignKey(Member,on_delete=models.SET_NULL,null=True, blank=True)
