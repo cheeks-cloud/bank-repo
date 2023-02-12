@@ -10,6 +10,9 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view 
+from rest_framework.response import Response 
+from rest_framework.reverse import reverse 
 
 def home(request):
     members = Member.objects.all().values()
@@ -54,32 +57,46 @@ def logout_request(request):
 	return redirect("home")
 
 
-class MemberViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Member.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class MembersList(generics.ListCreateAPIView):
+	"""
+	API endpoint that allows users to be viewed or edited.
+	"""
+	queryset = Member.objects.all()
+	serializer_class = UserSerializer
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+	def perform_create(self, serializer): 
+		serializer.save(owner=self.request.user)
 
 
-class AccountViewSet(viewsets.ModelViewSet):
+class AccountsList(generics.RetrieveUpdateDestroyAPIView):
+
     """
     API endpoint that allows groups to be viewed or edited.
     """
     queryset = memberAccounts.objects.all()
     serializer_class = AccountsSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class CardsViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows cards to be viewed or edited.
-    """
-    queryset = membercardnum.objects.all()
-    serializer_class = CardsSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class CardsList(generics.ListCreateAPIView):
+	"""
+	API endpoint that allows cards to be viewed or edited.
+	"""
+	queryset = membercardnum.objects.all()
+	serializer_class = CardsSerializer
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+	def perform_create(self, serializer): 
+		serializer.save(owner=self.request.user)
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'accounts': reverse('account-list', request=request, format=format),
+		'cards': reverse('card-list' ,request=request, format=format)
+    })
 
 @login_required(login_url='login')
 def new_account(request):
