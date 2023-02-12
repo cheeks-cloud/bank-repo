@@ -1,23 +1,18 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.template import loader
 from .models import *
 from .serializers import *
 from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import permissions,generics
 from django.contrib import messages
 from .forms import *
-# Create your views here.
-# def members(request):
-#     mypeople = Member.objects.all().values()
-#     template = loader.get_template('index.html')
-#     context = {
-#         'mypeople':mypeople
-#     }
+from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth import login, authenticate,logout
+from django.contrib.auth.forms import AuthenticationForm
 
-#     return HttpResponse(template.render(context, request))
 def home(request):
-    return render(request, 'index.html')
+    members = Member.objects.all().values()
+    return render( request, "users.html", {'members': members})
 
 def create_member(request):
     if request.method == 'POST':
@@ -28,10 +23,10 @@ def create_member(request):
             member.save()
             messages.success(
                 request, 'You have succesfully created member.')
-            return redirect('members')
+            return redirect('')
     else:
-        form = NewMemberForm()
-    return render(request, 'users.html', {'form': form})
+        form = NewMemForm()
+    return render(request, 'new_member.html', {'form': form})
 
 class MemberViewSet(viewsets.ModelViewSet):
     """

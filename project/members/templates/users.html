@@ -1,20 +1,24 @@
-{%extends 'base.html'%} {% load bootstrap4 %} {% load static%} {% block content%}
+{%extends 'base.html'%} {% load bootstrap4 %}{% block content%}
 
-{% load crispy_forms_tags %}
-{% load bootstrap4 %}
+<div class="container two">
+    <div class="row">
+    {% for member in members %}
+      <div class="image col-lg-6 col-md-12 mb-4 mb-lg-0 position-relative">
+        <h1> {{ member.username }}</h1>
+           <p> This are the accounts registered to {{member.username}}</p>
+          <div class="3">
+            {% for account in accounts%}
+                <ul>
+                <li> </li>
+                </ul>
+          </div>
+            {%endfor%}
+        
+           <p>Your bank balance is{{member.}}</p>
+             
     
-    <div class="container " style="margin-top: 6%;">
-        <h3 class="text-center">NEW cUSTOMER</h3>
-        <div class="col-sm-12 col-lg-6 m-auto card">
-            <form action="{%url 'new_member'%}" method="post" enctype="multipart/form-data">
-                <br>
-                {%csrf_token%}
-    
-                {% bootstrap_form form%}
-                <input type="submit" class="btn btn-info btn-lg btn-center" value="Post"><br><br>
-            </form>
-        </div><br>
+    {% endfor %}
     </div>
-</div>
-{% endblock %}
+  </div>
+  {%endblock%}
     
