@@ -1,18 +1,44 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<h1>Hello </h1>
-<p>Welcome to QuickBank Africa!</p>
-<div>
-    <ul>
-        <p>Here is  A list of all registered customers :</p>
-        {% for y in mypeople %}
-          <li>{{y.id}} {{ y.firstname }} {{ y.lastname }}</li>
-        {% endfor %}
-      </ul>
-</div>
 
 
-</body>
-</html>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Quickbank Afria</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'register'%}">Register <span class="sr-only">(current)</span></a>
+      </li>
+      {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user">Welcome, {{user.username}}</a>
+          </li>
+          <!-- <a class="btn btn-dark " href="{% url 'userpage'%}" role="button"> View your profile</a> -->
+      {% else %}
+    
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+    
+      {% endif %}
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false">API </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'project' %}">Projects</a>
+          <a class="dropdown-item" href="{% url 'profile_list'%}">Users</a>
+        </div>
+      </li>
+    
+    </ul>
+  
+    <a class="btn btn-dark " href="{% url 'new-project'%}" role="button"> create new account</a>
+
+  </div>
+</nav>
