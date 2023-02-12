@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Hello </h1>
+<p>Welcome to QuickBank Africa!</p>
+<div>
+    <ul>
+        <p>Here is  A list of all registered customers :</p>
+        {% for y in mypeople %}
+          <li>{{y.id}} {{ y.firstname }} {{ y.lastname }}</li>
+        {% endfor %}
+      </ul>
+</div>
+<!-- <ul>
+    {% for x in mymembers %}
+      <li>{{ x.firstname }} {{ x.lastname }}</li>
+    {% endfor %}
+  </ul> -->
+
+</body>
+</html>
