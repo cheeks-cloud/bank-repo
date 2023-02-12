@@ -26,7 +26,9 @@ class memberAccounts(models.Model):
     owner = models.ForeignKey(Member,on_delete=models.SET_NULL,null=True, blank=True)
     acountNumber = models.IntegerField(16)
     balance = models.IntegerField(16)
-  
+
+    def save_account(self):
+       self.save()
 # for each account match to member and bank registered to
 
 

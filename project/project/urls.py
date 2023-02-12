@@ -15,7 +15,8 @@ router.register(r'cards', views.CardsViewSet)
 urlpatterns = [
   
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('' ,include(router.urls)),
+    path('', include('members.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
  

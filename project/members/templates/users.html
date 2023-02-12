@@ -1,24 +1,2 @@
-{%extends 'base.html'%} {% load bootstrap4 %}{% block content%}
 
-<div class="container two">
-    <div class="row">
-    {% for member in members %}
-      <div class="image col-lg-6 col-md-12 mb-4 mb-lg-0 position-relative">
-        <h1> {{ member.username }}</h1>
-           <p> This are the accounts registered to {{member.username}}</p>
-          <div class="3">
-            {% for account in accounts%}
-                <ul>
-                <li> </li>
-                </ul>
-          </div>
-            {%endfor%}
-        
-           <p>Your bank balance is{{member.}}</p>
-             
-    
-    {% endfor %}
-    </div>
-  </div>
-  {%endblock%}
     
