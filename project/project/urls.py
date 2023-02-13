@@ -6,9 +6,9 @@ from members import views
 
 router = routers.SimpleRouter()
 
-# router.register(r'members', views.MemberViewSet)
-# router.register(r'accounts', views.AccountViewSet)
-# router.register(r'cards', views.CardsViewSet)
+router.register(r'members', views.MembersViewSet)
+router.register(r'accounts', views.AccountsViewSet)
+router.register(r'cards', views.CardsViewSet)
 
 
 
