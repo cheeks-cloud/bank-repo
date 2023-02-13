@@ -12,7 +12,7 @@ class Member (models.Model):
     password = models.CharField(max_length=16)
  
     def __str__(self):
-      return f"{self.firstName} {self.lastName}{self.email}"
+      return f"{self.firstName} {self.lastName} {self.email}"
 
 
     def create_member(self):
@@ -28,14 +28,13 @@ class memberAccounts(models.Model):
 
     def save_account(self):
        self.save()
-# for each account match to member and bank registered to
 
 
 class membercardnum(models.Model):
     cardNumber = models.IntegerField(16)
     cardAccount = models.ForeignKey(memberAccounts, on_delete=models.CASCADE)
 
-    def save_account(self):
+    def save_card(self):
        self.save()
 
 # for each card match it with the account and the member
